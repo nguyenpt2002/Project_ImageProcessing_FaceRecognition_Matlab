@@ -1,0 +1,15 @@
+function net = noron(P,T)
+alphabet = P;
+targets = T;
+[R,Q] = size(alphabet)
+[S2,Q] = size(targets)
+S1 = 120;
+net = newff(minmax(alphabet),[S1 S2],{'tansig' 'logsig'},'traingdx');
+net.performFcn = 'sse';       % Sum-Squared Error performance function  
+net.trainParam.goal = 0.001; % Sum-squared error goal.
+net.trainParam.show = 50;     % tan so tien trinh
+net.trainParam.epochs = 2000;  
+net.trainParam.mc = 0.95;     % hang so momen 
+P = alphabet;
+T = targets;
+[net,tr] = train(net,P,T);
